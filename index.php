@@ -78,13 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
   // Складываем предыдущие значения полей в массив, если есть.
   $values = array();
-  $values['fio'] = empty(strip_tags($_COOKIE['fio_value'])) ? '' : stip_tags($_COOKIE['fio_value']);
-  $values['email'] = empty(strip_tags($_COOKIE['email_value'])) ? '' : strip_tags($_COOKIE['email_value']);
+  $values['fio'] = empty($_COOKIE['fio_value']) ? '' : $_COOKIE['fio_value'];
+  $values['email'] = empty($_COOKIE['email_value']) ? '' : $_COOKIE['email_value'];
   $values['year'] = empty($_COOKIE['year_value']) ? '' : $_COOKIE['year_value'];
   $values['sex'] = empty($_COOKIE['sex_value']) ? '' : $_COOKIE['sex_value'];
   $values['limbs'] = empty($_COOKIE['limbs_value']) ? '' : $_COOKIE['limbs_value'];
   $values['ability'] = empty($_COOKIE['ability_value']) ? '' : $_COOKIE['ability_value'];
-  $values['biography'] = empty(strip_tags($_COOKIE['biography_value'])) ? '' : strip_tags($_COOKIE['biography_value']);
+  $values['biography'] = empty($_COOKIE['biography_value']) ? '' : $_COOKIE['biography_value'];
   // TODO: аналогично все поля.
 
   // Включаем содержимое файла form.php.
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 else {
   // Проверяем ошибки.
   $errors = FALSE;
-  if (empty($_POST['fio']) || ) {
+  if (empty($_POST['fio']) ) {
     // Выдаем куку на день с флажком об ошибке в поле fio.
     setcookie('fio_error', '1', time() + 24 * 60 * 60);
     $errors = TRUE;
