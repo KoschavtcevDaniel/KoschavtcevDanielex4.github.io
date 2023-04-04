@@ -23,7 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $errors = array();
   $errors['fio'] = !empty($_COOKIE['fio_error']);
   $errors['email'] = !empty($_COOKIE['email_error']);
+  $errors['year'] = !empty($_COOKIE['year_error']);
+  $errors['sex'] = !empty($_COOKIE['sex_error']);
+  $errors['limbs'] = !empty($_COOKIE['limbs_error']);
+  $errors['ability'] = !empty($_COOKIE['ability_error']);
   $errors['biography'] = !empty($_COOKIE['biography_error']);
+
   // TODO: аналогично все поля.
 
   // Выдаем сообщения об ошибках.
@@ -39,6 +44,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Выводим сообщение.
     $messages[] = '<div class="error">Заполните e-mail.</div>';
   }
+  if ($errors['year']) {
+    // Удаляем куку, указывая время устаревания в прошлом.
+    setcookie('year_error', '', 100000);
+    // Выводим сообщение.
+    $messages[] = '<div class="error">Неправильный год.</div>';
+  }
+  if ($errors['sex']) {
+    // Удаляем куку, указывая время устаревания в прошлом.
+    setcookie('sex_error', '', 100000);
+    // Выводим сообщение.
+    $messages[] = '<div class="error">Неправильный sex.</div>';
+  }
+  if ($errors['limbs']) {
+    // Удаляем куку, указывая время устаревания в прошлом.
+    setcookie('limbs_error', '', 100000);
+    // Выводим сообщение.
+    $messages[] = '<div class="error">Неправильные данные.</div>';
+  }
+  if ($errors['ability']) {
+    // Удаляем куку, указывая время устаревания в прошлом.
+    setcookie('ability_error', '', 100000);
+    // Выводим сообщение.
+    $messages[] = '<div class="error">Выберите способность.</div>';
+  }
   if ($errors['biography']) {
     // Удаляем куку, указывая время устаревания в прошлом.
     setcookie('biography_error', '', 100000);
@@ -49,9 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
   // Складываем предыдущие значения полей в массив, если есть.
   $values = array();
-  $values['fio'] = empty($_COOKIE['fio_value']) ? '' : $_COOKIE['fio_value'];
-  $values['email'] = empty($_COOKIE['email_value']) ? '' : $_COOKIE['email_value'];
-  $values['biography'] = empty($_COOKIE['biography_value']) ? '' : $_COOKIE['biography_value'];
+  $values['fio'] = empty(strip_tags($_COOKIE['fio_value'])) ? '' : stip_tags($_COOKIE['fio_value']);
+  $values['email'] = empty(strip_tags($_COOKIE['email_value'])) ? '' : strip_tags($_COOKIE['email_value']);
+  $values['year'] = empty($_COOKIE['year_value']) ? '' : $_COOKIE['year_value'];
+  $values['sex'] = empty($_COOKIE['sex_value']) ? '' : $_COOKIE['sex_value'];
+  $values['limbs'] = empty($_COOKIE['limbs_value']) ? '' : $_COOKIE['limbs_value'];
+  $values['ability'] = empty($_COOKIE['ability_value']) ? '' : $_COOKIE['ability_value'];
+  $values['biography'] = empty(strip_tags($_COOKIE['biography_value'])) ? '' : strip_tags($_COOKIE['biography_value']);
   // TODO: аналогично все поля.
 
   // Включаем содержимое файла form.php.
@@ -63,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 else {
   // Проверяем ошибки.
   $errors = FALSE;
-  if (empty($_POST['fio'])) {
+  if (empty($_POST['fio']) || ) {
     // Выдаем куку на день с флажком об ошибке в поле fio.
     setcookie('fio_error', '1', time() + 24 * 60 * 60);
     $errors = TRUE;
@@ -81,6 +114,46 @@ else {
   else {
     // Сохраняем ранее введенное в форму значение на месяц.
     setcookie('email_value', $_POST['email'], time() + 30 * 24 * 60 * 60);
+  }
+
+  if (empty($_POST['year'])) {
+    // Выдаем куку на день с флажком об ошибке в поле fio.
+    setcookie('year_error', '1', time() + 24 * 60 * 60);
+    $errors = TRUE;
+  }
+  else {
+    // Сохраняем ранее введенное в форму значение на месяц.
+    setcookie('year_value', $_POST['year'], time() + 30 * 24 * 60 * 60);
+  }
+
+  if (empty($_POST['sex'])) {
+    // Выдаем куку на день с флажком об ошибке в поле fio.
+    setcookie('sex_error', '1', time() + 24 * 60 * 60);
+    $errors = TRUE;
+  }
+  else {
+    // Сохраняем ранее введенное в форму значение на месяц.
+    setcookie('sex_value', $_POST['sex'], time() + 30 * 24 * 60 * 60);
+  }
+
+  if (empty($_POST['limbs'])) {
+    // Выдаем куку на день с флажком об ошибке в поле fio.
+    setcookie('limbs_error', '1', time() + 24 * 60 * 60);
+    $errors = TRUE;
+  }
+  else {
+    // Сохраняем ранее введенное в форму значение на месяц.
+    setcookie('limbs_value', $_POST['limbs'], time() + 30 * 24 * 60 * 60);
+  }
+
+  if (empty($_POST['ability'])) {
+    // Выдаем куку на день с флажком об ошибке в поле fio.
+    setcookie('ability_error', '1', time() + 24 * 60 * 60);
+    $errors = TRUE;
+  }
+  else {
+    // Сохраняем ранее введенное в форму значение на месяц.
+    setcookie('ability_value', $_POST['ability'], time() + 30 * 24 * 60 * 60);
   }
 
   if (empty($_POST['biography'])) {
@@ -106,6 +179,10 @@ else {
     // Удаляем Cookies с признаками ошибок.
     setcookie('fio_error', '', 100000);
     setcookie('email_error', '', 100000);
+    setcookie('year_error', '', 100000);
+    setcookie('sex_error', '', 100000);
+    setcookie('limbs_error', '', 100000);
+    setcookie('ability_error', '', 100000);
     setcookie('biography_error', '', 100000);
     // TODO: тут необходимо удалить остальные Cookies.
   }

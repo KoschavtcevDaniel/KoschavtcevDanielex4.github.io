@@ -28,9 +28,9 @@ if (!empty($messages)) {
 <form action="" method="POST">
   <div class = "main">
  <div class = "name"><label>FIO</label>
- <input name="fio" <?php if ($errors['fio']) {print 'class="error"';} ?> value="<?php print $values['fio']; ?>" /></div>
+ <input name="fio" <?php if ($errors['fio']) {print 'class="error"';} ?> value="<?php print strip_tags($values['fio']); ?>" /></div>
   <div class = "email"><label>E-MAIL</label>
-  <input name="email" <?php if ($errors['email'] ) {print 'class="error"';} ?> value="<?php print $values['email']; ?>" /></div>
+  <input name="email" <?php if ($errors['email']) {print 'class="error"';} ?> value="<?php print strip_tags($values['email']); ?>" /></div>
   <div class = "year"><label>YEAR</label>
   <select name="year">
     <?php 
@@ -64,7 +64,7 @@ if (!empty($messages)) {
   </div>
 
   <div class = "biography"><label> Ваша биография:</label>
-        <textarea name="biography" <?php if ($errors['biography']) {print 'class="error"';} ?> value="<?php print $values['biography']; ?>"></textarea>
+        <textarea name="biography" <?php if ($errors['biography']) {print 'class="error"';} ?> value="<?php print strip_tags($values['biography']); ?>"></textarea>
   </div>
 
   <p>
