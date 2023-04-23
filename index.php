@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $errors['year'] = !empty($_COOKIE['year_error']);
   $errors['sex'] = !empty($_COOKIE['sex_error']);
   $errors['limbs'] = !empty($_COOKIE['limbs_error']);
-  $errors['ability'] = !empty($_COOKIE['ability_error']);
+  $errors['abilities'] = !empty($_COOKIE['ability_error']);
   $errors['biography'] = !empty($_COOKIE['biography_error']);
   $errors['check1'] = !empty($_COOKIE['check_error']);
 
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Выводим сообщение.
     $messages[] = '<div class="error">Неправильные данные.</div>';
   }
-  if ($errors['ability']) {
+  if ($errors['abilities']) {
     // Удаляем куку, указывая время устаревания в прошлом.
     setcookie('ability_error', '', 100000);
     // Выводим сообщение.
@@ -171,25 +171,25 @@ else {
   if (!isset($_POST['abilities'])) {
     // Выдаем куку на день с флажком об ошибке в поле fio.
     setcookie('ability_error', '1', time() + 24 * 60 * 60);
-    setcookie('ab_in', '', 100000);
-    setcookie('ab_t', '', 100000);
-    setcookie('ab_l', '', 100000);
-    setcookie('ab_v', '', 100000);
+    setcookie('ab_in_value', '', 100000);
+    setcookie('ab_t_value', '', 100000);
+    setcookie('ab_l_value', '', 100000);
+    setcookie('ab_v_value', '', 100000);
     $errors = TRUE;
   }
   else {
     $ability=$_POST['abilities'];
     $abil=array(
-      "ab_in"=>0,
-      "ab_t"=>0,
-      "ab_l"=>0,
-      "ab_v"=>0,
+      "ab_in_value"=>0,
+      "ab_t_value"=>0,
+      "ab_l_value"=>0,
+      "ab_v_value"=>0,
     );
   foreach($ability as $ab){
-    if($ab =='ab_in'){setcookie('ab_in', 1, time() + 12 * 30 * 24 * 60 * 60); $abil['ab_in']=1;} 
-    if($ab =='ab_t'){setcookie('ab_t', 1, time() + 12*30 * 24 * 60 * 60);$abil['ab_t']=1;} 
-    if($ab =='ab_l'){setcookie('ab_l', 1, time() + 12*30 * 24 * 60 * 60);$abil['ab_l']=1;}
-    if($ab =='ab_v'){setcookie('ab_v', 1, time() + 12*30 * 24 * 60 * 60);$abil['ab_v']=1;} 
+    if($ab =='ab_in'){setcookie('ab_in_value', 1, time() + 12 * 30 * 24 * 60 * 60); $abil['ab_in_value']=1;} 
+    if($ab =='ab_t'){setcookie('ab_t_value', 1, time() + 12*30 * 24 * 60 * 60);$abil['ab_t_value']=1;} 
+    if($ab =='ab_l'){setcookie('ab_l_value', 1, time() + 12*30 * 24 * 60 * 60);$abil['ab_l_value']=1;}
+    if($ab =='ab_v'){setcookie('ab_v_value', 1, time() + 12*30 * 24 * 60 * 60);$abil['ab_v_value']=1;} 
     }
   foreach($abil as $cons=>$val){
     if($val==0){
@@ -238,7 +238,7 @@ else {
     setcookie('limbs_error', '', 100000);
     setcookie('ability_error', '', 100000);
     setcookie('biography_error', '', 100000);
-    setcookie('check1_error', '', 100000);
+    setcookie('check_error', '', 100000);
     // TODO: тут необходимо удалить остальные Cookies.
   }
 
